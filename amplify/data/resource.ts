@@ -22,7 +22,6 @@ const schema = a.schema({
       periodOfActivation: a.boolean().default(false),
       device_iot_data_id: a.string(),
       custom_category: a.string(),
-      sheduleRepeat: a.enum(["Repeat Weekly", "Repeat one off"]),
       location: a.customType({
         lat: a.float().required(),
         lng: a.float().required(),
@@ -42,10 +41,6 @@ export const data = defineData({
   schema,
   authorizationModes: {
     defaultAuthorizationMode: "userPool",
-    // API Key is used for a.allow.public() rules
-    apiKeyAuthorizationMode: {
-      expiresInDays: 30,
-    },
   },
 });
 
