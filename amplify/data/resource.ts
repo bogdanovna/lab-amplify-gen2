@@ -11,18 +11,18 @@ const schema = a.schema({
     .model({
       content: a.string(),
     })
-    .authorization((allow) => [allow.publicApiKey()]),
+    .authorization((allow) => [allow.owner()]),
   Device: a
     .model({
       name: a.string(),
       category: a.string(),
-      device_type: a.enum(['sensor', 'gateway']),
+      device_type: a.enum(["sensor", "gateway"]),
       device_from_iot_data: a.boolean().default(false),
       iot_dashboard_active: a.boolean().default(false),
       periodOfActivation: a.boolean().default(false),
       device_iot_data_id: a.string(),
       custom_category: a.string(),
-      sheduleRepeat: a.enum(['Repeat Weekly','Repeat one off']),
+      sheduleRepeat: a.enum(["Repeat Weekly", "Repeat one off"]),
       location: a.customType({
         lat: a.float().required(),
         lng: a.float().required(),
@@ -41,7 +41,7 @@ export type Schema = ClientSchema<typeof schema>;
 export const data = defineData({
   schema,
   authorizationModes: {
-    defaultAuthorizationMode: 'userPool',
+    defaultAuthorizationMode: "userPool",
     // API Key is used for a.allow.public() rules
     apiKeyAuthorizationMode: {
       expiresInDays: 30,
