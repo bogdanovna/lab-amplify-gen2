@@ -12,6 +12,28 @@ const schema = a.schema({
       content: a.string(),
     })
     .authorization((allow) => [allow.publicApiKey()]),
+  Device: a
+    .model({
+      name: a.string(),
+      category: a.string(),
+      device_type: a.enum(['sensor', 'gateway']),
+      device_from_iot_data: a.boolean().default(false),
+      iot_dashboard_active: a.boolean().default(false),
+      periodOfActivation: a.boolean().default(false),
+      device_iot_data_id: a.string(),
+      custom_category: a.string(),
+      sheduleRepeat: a.enum(['Repeat Weekly','Repeat one off']),
+      location: a.customType({
+        lat: a.float().required(),
+        lng: a.float().required(),
+        address: a.string(),
+      }),
+      description: a.string(),
+      date_of_manufacture: a.date(),
+      date_of_purchase: a.date(),
+      warranty_period: a.date(),
+    })
+    .authorization((allow) => allow.owner()),
 });
 
 export type Schema = ClientSchema<typeof schema>;
